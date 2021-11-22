@@ -46,3 +46,15 @@
   height: auto;
   background-color: #90EE90;
 }
+
+p{
+  margin-bottom: 0;
+  padding-top: 0;
+}
+
+.grayer{
+  background-color: lightgray;
+}
+.whiter{
+  background-color: whitesmoke;
+}

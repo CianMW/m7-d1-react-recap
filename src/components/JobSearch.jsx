@@ -8,6 +8,7 @@ import {
   FormGroup,
 } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import SearchResults from "./SearchResults";
 
 const JobSearch = () => {
   const [query, setQuery] = useState("");
@@ -24,7 +25,7 @@ const JobSearch = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log("HERE IS THE FETCHED DATA :", data);
+          console.log("HERE IS THE FETCHED DATA :", ...data);
           await setSearchResult(...data);
         } else {
           console.log("ERROR: could not fetch data");
@@ -94,8 +95,9 @@ const JobSearch = () => {
           </Row>
         </Container>
       </div>
-
+    <Container>
      <SearchResults result={searchResult}/> 
+     </Container>
     </div>
   );
 };

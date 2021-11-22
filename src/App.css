@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.search-group{
+  background-color: aliceblue ;
+  padding: 10px;
+}
+
+.head-background{
+  height: auto;
+  background-color: #90EE90;
+}

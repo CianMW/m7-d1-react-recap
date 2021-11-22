@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import MyNavbar from './components/MyNavbar';
 import JobSearch from './components/JobSearch';
+import CompanyInfo from './components/CompanyInfo';
 
 function App() {
   return (
@@ -15,8 +16,7 @@ function App() {
 
       <Routes>
           <Route path='/' element={<JobSearch />} />
-          {/* <Route path='/cart' element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
-          <Route path='*' element={<h1>404 - Not Found</h1>} /> */}
+          <Route path='/company/:companyId' element={<CompanyInfo />} />
       </Routes>
       
       </BrowserRouter>

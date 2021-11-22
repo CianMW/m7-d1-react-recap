@@ -47,7 +47,7 @@ const JobSearch = () => {
   }, [query]);
 
   return (
-    <div>
+    <div className="total-cover">
       <div className="head-background">
         <Container className="p-2">
           <Row>

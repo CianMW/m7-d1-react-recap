@@ -58,3 +58,16 @@ p{
 .whiter{
   background-color: whitesmoke;
 }
+
+.right-border{
+  border-right: 2px solid black;
+}
+.bottom-border{
+  border-bottom: 2px solid black;
+}
+
+.total-cover{
+  background:  whitesmoke;
+  width: 100%;
+  height: 100%;
+}

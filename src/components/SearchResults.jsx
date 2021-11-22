@@ -20,7 +20,7 @@ const SearchResults = ({result}) => {
                 </div>
             </Col>
             <Col sm={6}>
-                <Link to="/" >
+                <Link to={`/company/${data._id}`} >
                     <Button>find out more</Button>
                 </Link>
             </Col>

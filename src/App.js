@@ -5,8 +5,22 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import MyNavbar from './components/MyNavbar';
 import JobSearch from './components/JobSearch';
 import CompanyInfo from './components/CompanyInfo';
+import { connect } from 'react-redux';
 
+
+const MapStateToProps = (state) => {
+  return state
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  increaseCounter: () => {
+    dispatch({
+      type: "INCREMENT"
+      })
+    }
+}) 
 function App() {
+
   return (
     <div className="App">
 
@@ -25,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect( MapStateToProps, mapDispatchToProps)(App);

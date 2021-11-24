@@ -9,13 +9,13 @@ const MyNavbar = () => {
       <Link to="/">
         <img src={clipart} height="50px" width="50px" />
       </Link>
-      <Link to="/">
-      <Nav className="ml-4 mr-auto">
+      <Link className="remove-deco" to="/">
+      <Nav className="ml-4 mr-auto link-highlight remove-deco">
         <span>Home</span>
       </Nav>
       </Link>
-      <Link to="/favourites">
-      <Nav className="ml-4 mr-auto">
+      <Link className="remove-deco " to="/favourites">
+      <Nav className="ml-4 mr-auto link-highlight remove-deco">
         <span>Favourites</span>
       </Nav>
       </Link>

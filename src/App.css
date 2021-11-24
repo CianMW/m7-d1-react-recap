@@ -89,3 +89,50 @@ background: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 5%, rgba(190,245,1
 background: linear-gradient(0deg, rgba(255,255,255,1) 5%, rgba(190,245,190,1) 20%, rgba(190,245,190,1) 32%, rgba(144,238,144,1) 57%, rgba(71,182,71,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#47b647",GradientType=1);
 }
+
+
+.remove-deco{
+  text-decoration: none;
+  color: white;
+}
+
+.remove-deco:hover{
+  text-decoration: none;
+  color: white;
+}
+
+/* .link-highlight:hover{
+  background-color: rgb(92, 92, 92);
+  height: 100%
+} */
+
+.link-highlight{
+  height: 100%;
+}
+.link-highlight:hover {
+  background-color: rgb(44, 44, 44);
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.5s linear;
+}
+
+ .bubble:hover {
+   display: block;
+  background-color: rgb(124, 124, 124);
+  background-repeat: no-repeat;
+  border: none;
+  width: 40px;
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  transition: background-color 0.4s linear;
+} 
+
+.fav-star{
+ color: black;
+  font-size: 25px;
+   cursor: pointer
+}

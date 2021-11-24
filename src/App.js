@@ -6,6 +6,7 @@ import MyNavbar from './components/MyNavbar';
 import JobSearch from './components/JobSearch';
 import CompanyInfo from './components/CompanyInfo';
 import { connect } from 'react-redux';
+import Favourites from './components/Favourites';
 
 
 const MapStateToProps = (state) => {
@@ -31,6 +32,8 @@ function App() {
       <Routes>
           <Route path='/' element={<JobSearch />} />
           <Route path='/company/:companyId' element={<CompanyInfo />} />
+          <Route path='/favourites' element={<Favourites />} />
+          
       </Routes>
       
       </BrowserRouter>

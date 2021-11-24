@@ -14,7 +14,9 @@ import clipart from "../imageAssets/clipart329592.png";
 import { connect } from "react-redux";
 
 
- const mapStateToProps = (state) => state
+ const mapStateToProps = (state) => ({
+   favouriteArray: state.data.favourites
+ })
 
  const mapDispatchToProps = (dispatch) => ({
     favourite: (element) => {
@@ -33,9 +35,9 @@ import { connect } from "react-redux";
 
 
 
-const SearchResults = ({ result, favourite, removeFavourite }) => {
+const Favourites = ({ result, favourite, removeFavourite, favouriteArray }) => {
   const [searchResult, setSearchResult] = useState(result);
-  const [selectedItemsArray, setSelectedItemsArray] = useState([]);
+  const [selectedItemsArray, setSelectedItemsArray] = useState(favouriteArray);
 
 
   const toggleClick =(element)=> {
@@ -54,8 +56,8 @@ const SearchResults = ({ result, favourite, removeFavourite }) => {
 
   return (
     <div>
-      {result ? (
-        result.data.map((data, i) => (
+      {favouriteArray ? (
+        favouriteArray.map((data, i) => (
           <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
             <Col sm={6}>
               <div>
@@ -93,4 +95,4 @@ const SearchResults = ({ result, favourite, removeFavourite }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);
+export default connect(mapStateToProps, mapDispatchToProps)(Favourites);

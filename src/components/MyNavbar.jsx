@@ -9,9 +9,16 @@ const MyNavbar = () => {
       <Link to="/">
         <img src={clipart} height="50px" width="50px" />
       </Link>
+      <Link to="/">
       <Nav className="ml-4 mr-auto">
-        <Nav.Link href="#">Home</Nav.Link>
+        <span>Home</span>
       </Nav>
+      </Link>
+      <Link to="/favourites">
+      <Nav className="ml-4 mr-auto">
+        <span>Favourites</span>
+      </Nav>
+      </Link>
     </Navbar>
   );
 };

@@ -5,8 +5,23 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import MyNavbar from './components/MyNavbar';
 import JobSearch from './components/JobSearch';
 import CompanyInfo from './components/CompanyInfo';
+import { connect } from 'react-redux';
+import Favourites from './components/Favourites';
 
+
+const MapStateToProps = (state) => {
+  return state
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  increaseCounter: () => {
+    dispatch({
+      type: "INCREMENT"
+      })
+    }
+}) 
 function App() {
+
   return (
     <div className="App">
 
@@ -17,6 +32,8 @@ function App() {
       <Routes>
           <Route path='/' element={<JobSearch />} />
           <Route path='/company/:companyId' element={<CompanyInfo />} />
+          <Route path='/favourites' element={<Favourites />} />
+          
       </Routes>
       
       </BrowserRouter>
@@ -25,4 +42,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect( MapStateToProps, mapDispatchToProps)(App);

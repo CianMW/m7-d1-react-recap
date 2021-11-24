@@ -9,42 +9,70 @@ import {
 } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import SearchResults from "./SearchResults";
+import { connect } from "react-redux";
 
 const JobSearch = () => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [searchResult, setSearchResult] = useState(null);
 
+  const mapStateToProps = (state) => state
+
+
+
+ const fetchData = async () => {
+    if (query.length > 3 && category) {
+      const response = await fetch(
+        `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&category=${category}&limit=10`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log("HERE IS THE FETCHED DATA :", ...data);
+        await setSearchResult(...data);
+      } else {
+        console.log("ERROR: could not fetch data");
+      }
+    } else if (query.length > 3) {
+      const response = await fetch(
+        `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&limit=10`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log("HERE IS THE FETCHED DATA :", data);
+        await setSearchResult(data);
+      } else {
+        console.log("ERROR: could not fetch data");
+      }
+    } else {
+      const response = await fetch(
+        `https://strive-jobs-api.herokuapp.com/jobs?limit=10`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log("HERE IS THE FETCHED DATA :", data);
+        await setSearchResult(data);
+      } else {
+        console.log("ERROR: could not fetch data");
+      }
+    }
+  }
+
+
   useEffect(() => {
     console.log("this is the query:", query);
     console.log("this is the category:", category);
-    async function fetchData() {
-      if (query.length > 4 && category) {
-        const response = await fetch(
-          `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&category=${category}&limit=10`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          console.log("HERE IS THE FETCHED DATA :", ...data);
-          await setSearchResult(...data);
-        } else {
-          console.log("ERROR: could not fetch data");
-        }
-      } else if (query.length > 4) {
-        const response = await fetch(
-          `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&limit=10`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          console.log("HERE IS THE FETCHED DATA :", data);
-          await setSearchResult(data);
-        } else {
-          console.log("ERROR: could not fetch data");
-        }
-      }
-    }
+   
     fetchData();
   }, [query]);
+
+  useEffect(() => {
+    console.log("this is the query:", query);
+    console.log("this is the category:", category);
+    if (!searchResult) {
+      fetchData();
+    }
+   
+  }, []);
 
   return (
     <div className="total-cover">
@@ -96,7 +124,8 @@ const JobSearch = () => {
         </Container>
       </div>
     <Container>
-     <SearchResults result={searchResult}/> 
+      {searchResult && (<SearchResults result={searchResult}/> )}
+     
      </Container>
     </div>
   );

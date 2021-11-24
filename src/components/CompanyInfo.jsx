@@ -38,7 +38,8 @@ const CompanyInfo = () => {
   //setCompanyId(params.companyId)
 
   return (
-    <Container>
+    <div className="total-cover-company">
+    <Container >
       {companyInfo && companyInfo.data.map((info, i) => 
       <Row >
       <Col className="right-border bottom-border" sm={6}>
@@ -61,6 +62,7 @@ const CompanyInfo = () => {
       
       )}
     </Container>
+    </div>
   );
 };
 

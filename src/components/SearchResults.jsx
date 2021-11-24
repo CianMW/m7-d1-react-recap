@@ -17,27 +17,28 @@ import { connect } from "react-redux";
  const mapStateToProps = (state) => state
 
  const mapDispatchToProps = (dispatch) => ({
-    favourite: (elementId) => {
+    favourite: (element) => {
       dispatch({
         type: "FAVOURITE",
-        payload: elementId
+        payload: element
         })
       }
   }) 
 
 
 
-const SearchResults = ({ result }) => {
+const SearchResults = ({ result, favourite }) => {
   const [searchResult, setSearchResult] = useState(result);
   const [selectedItemsArray, setSelectedItemsArray] = useState([]);
 
 
-  const toggleClick =( id )=> {
-   const index = selectedItemsArray.indexOf(id)
+  const toggleClick =(element)=> {
+   const index = selectedItemsArray.indexOf(element._id)
+   favourite(element)
    if (index === -1) {
-       setSelectedItemsArray([...selectedItemsArray, id])
+       setSelectedItemsArray([...selectedItemsArray, element._id])
    } else {
-       setSelectedItemsArray([...selectedItemsArray.filter(el => el !== id)])
+       setSelectedItemsArray([...selectedItemsArray.filter(el => el !== element._id)])
    }
 
   };
@@ -73,7 +74,7 @@ const SearchResults = ({ result }) => {
               <i className={
              selectedItemsArray.includes(data._id) ? "bi bi-star-fill" : "bi bi-star"
           }
-          onClick={() => toggleClick(data._id)} style={{color: "black", fontSize: "25px", cursor: "pointer"}}></i>
+          onClick={() => toggleClick(data)} style={{color: "black", fontSize: "25px", cursor: "pointer"}}></i>
               </div>
             </Col>
           </Row>

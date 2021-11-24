@@ -1,4 +1,4 @@
-import { initialState } from "../store"
+import { initialState } from "../store/index.js"
 
 
 const mainReducer = (state = initialState, action) => {

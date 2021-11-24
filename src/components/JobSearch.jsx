@@ -9,16 +9,19 @@ import {
 } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import SearchResults from "./SearchResults";
+import { connect } from "react-redux";
 
 const JobSearch = () => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [searchResult, setSearchResult] = useState(null);
 
+  const mapStateToProps = (state) => state
+
 
 
  const fetchData = async () => {
-    if (query.length > 4 && category) {
+    if (query.length > 3 && category) {
       const response = await fetch(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&category=${category}&limit=10`
       );
@@ -29,7 +32,7 @@ const JobSearch = () => {
       } else {
         console.log("ERROR: could not fetch data");
       }
-    } else if (query.length > 4) {
+    } else if (query.length > 3) {
       const response = await fetch(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&limit=10`
       );

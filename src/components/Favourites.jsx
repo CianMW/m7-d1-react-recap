@@ -37,12 +37,12 @@ import { connect } from "react-redux";
 
 const Favourites = ({ result, favourite, removeFavourite, favouriteArray }) => {
   const [searchResult, setSearchResult] = useState(result);
-  const [selectedItemsArray, setSelectedItemsArray] = useState(favouriteArray);
+  const [selectedItemsArray, setSelectedItemsArray] = useState([...favouriteArray]);
 
 
   const toggleClick =(element)=> {
    const index = selectedItemsArray.indexOf(element._id)
-   if (index === -1) {
+   if (index !== -1) {
        setSelectedItemsArray([...selectedItemsArray, element._id])
        favourite(element)
    } else {
@@ -54,8 +54,9 @@ const Favourites = ({ result, favourite, removeFavourite, favouriteArray }) => {
 
  
 
+
   return (
-    <div>
+    <div className="total-cover">
       {favouriteArray ? (
         favouriteArray.map((data, i) => (
           <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
@@ -81,7 +82,7 @@ const Favourites = ({ result, favourite, removeFavourite, favouriteArray }) => {
                 <Button>find out more</Button>
               </Link>
               <i className={
-             selectedItemsArray.includes(data._id) ? "bi bi-star-fill" : "bi bi-star"
+             "bi bi-star-fill bubble"
           }
           onClick={() => toggleClick(data)} style={{color: "black", fontSize: "25px", cursor: "pointer"}}></i>
               </div>

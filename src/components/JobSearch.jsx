@@ -10,19 +10,24 @@ import {
 import { useEffect, useState } from "react";
 import SearchResults from "./SearchResults";
 import { connect } from "react-redux";
+import { fetchJobsAction } from "../actions/index.js";
+const mapStateToProps = (state) => state;
 
-const JobSearch = () => {
+//setJobs takes a url as payload and uses it as props
+const mapDispatchToProps = (dispatch) => ({
+  setJobs: (url) => {
+    dispatch(fetchJobsAction(url))
+  }
+});
+
+const JobSearch = ({setJobs, state}) => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [searchResult, setSearchResult] = useState(null);
 
-  const mapStateToProps = (state) => state
-
-
-
- const fetchData = async () => {
+  const fetchData = async () => {
     if (query.length > 3 && category) {
-      const response = await fetch(
+      const response = await setJobs(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&category=${category}&limit=10`
       );
       if (response.ok) {
@@ -48,6 +53,7 @@ const JobSearch = () => {
         `https://strive-jobs-api.herokuapp.com/jobs?limit=10`
       );
       if (response.ok) {
+         setJobs("SHOULD BE URL");
         const data = await response.json();
         console.log("HERE IS THE FETCHED DATA :", data);
         await setSearchResult(data);
@@ -55,13 +61,12 @@ const JobSearch = () => {
         console.log("ERROR: could not fetch data");
       }
     }
-  }
-
-
+  };
+  
   useEffect(() => {
     console.log("this is the query:", query);
     console.log("this is the category:", category);
-   
+
     fetchData();
   }, [query]);
 
@@ -71,7 +76,6 @@ const JobSearch = () => {
     if (!searchResult) {
       fetchData();
     }
-   
   }, []);
 
   return (
@@ -123,12 +127,11 @@ const JobSearch = () => {
           </Row>
         </Container>
       </div>
-    <Container>
-      {searchResult && (<SearchResults result={searchResult}/> )}
-     
-     </Container>
+      <Container>
+        {searchResult && <SearchResults result={searchResult} />}
+      </Container>
     </div>
   );
 };
 
-export default JobSearch;
+export default connect(mapStateToProps, mapDispatchToProps)(JobSearch);

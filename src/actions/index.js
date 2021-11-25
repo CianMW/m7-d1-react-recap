@@ -1,4 +1,23 @@
-export const addToCartAction = (bookToAdd) => ({
+export const fetchJobsAction = (url) => {
+    // do fetch stuff
+   return async (dispatch) => {
+       console.log("THIS IS THE URL",url)
+    const response = await fetch(url);
+      if (response.ok) {
+        const data = await response.json();
+        console.log("HERE IS THE FETCHED DATA :", ...data);
+           dispatch({
+            type:'SET_JOBS',
+            payload: data
+        });
+      } else {
+        console.log("ERROR: could not fetch data");
+      }
+   }
+};
+
+//BELOW IS STEFANOS WORK AS EXAMPLES
+/* export const addToCartAction = (bookToAdd) => ({
     type: ADD_TO_CART,
     payload: bookToAdd, // this is going to be the book we intend to add to the cart
     // the payload is any other piece of info required by the reducer to understand
@@ -67,4 +86,4 @@ export const addToCartAction = (bookToAdd) => ({
         })
       }
     }
-  }
+  } */

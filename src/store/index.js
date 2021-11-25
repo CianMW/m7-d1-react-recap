@@ -1,25 +1,27 @@
-import {compose, createStore, applyMiddleware} from "redux"
+import {compose, createStore, applyMiddleware, combineReducers} from "redux"
 import mainReducer from "../reducers/jobsReducer.js"
 import thunk from "redux-thunk"
-import combineReducers from "redux/src/combineReducers"
 import favouriteReducer from "../reducers/favouriteReducer.js"
 import jobsReducer from "../reducers/jobsReducer.js"
 
+
+const aComposeFunctionThatAlwaysWorks = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+export const initialState = {
+  data: {
+    favourites : [],
+    loading: true,
+  },
+  jobs: {
+    content: [],
+    error: false,
+    loading: true,
+  }
+}
 const bigReducer = combineReducers({
-  cart: favouriteReducer,
+  data: favouriteReducer,
   jobs: jobsReducer
 })
 
-const aComposeFunctionThatAlwaysWorks = window.__REDUX_DEVTOOLS_EXTEMSION_COMPOSE__ || compose
-
-export const initialState = {
-    data: {
-      favourites : []
-    },
-    jobs: {
-      content: []
-    }
-  }
-
-export const configureStore = createStore(bigReducer, aComposeFunctionThatAlwaysWorks(applyMiddleware(thunk)))
+export const configureStore = createStore(bigReducer,initialState, aComposeFunctionThatAlwaysWorks(applyMiddleware(thunk)))
 

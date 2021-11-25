@@ -5,25 +5,21 @@ const jobsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "SET_JOBS": 
 			return {
-				data:{
-						...state.data,
-			favourites: [
-				...state.data.favourites,
-				 action.payload
-			]
+				...state,
+				content: [...action.payload]
 				}
 		
-		}
-		case "SET_ERROR": 
-			return {
-				data: {
-					...state.data,
-			favourites: [
-				...state.data.favourites.filter(element => element._id === action.payload._id)
-			]
-				}
+		
+		// case "SET_ERROR": 
+		// 	return {
+		// 		data: {
+		// 			...state.data,
+		// 	favourites: [
+		// 		...state.data.favourites.filter(element => element._id === action.payload._id)
+		// 	]
+		// 		}
 			
-		}
+		// }
 		default:
 			return state 	
 	}

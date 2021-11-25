@@ -34,7 +34,7 @@ import { connect } from "react-redux";
 
 
 const SearchResults = ({ result, favourite, removeFavourite }) => {
-  const [searchResult, setSearchResult] = useState(result);
+  const [searchResult, setSearchResult] = useState(...result);
   const [selectedItemsArray, setSelectedItemsArray] = useState([]);
 
 
@@ -50,12 +50,14 @@ const SearchResults = ({ result, favourite, removeFavourite }) => {
 
   };
 
- 
+  
+
 
   return (
     <div>
-      {result ? (
-        result.data.map((data, i) => (
+      {console.log(result)}
+      {searchResult ? (
+        searchResult.map((data, i) => (
           <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
             <Col sm={9}>
               <Col sm={6}>

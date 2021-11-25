@@ -5,10 +5,11 @@ export const fetchJobsAction = (url) => {
     const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
-        console.log("HERE IS THE FETCHED DATA :", ...data);
-           dispatch({
+        console.log("HERE IS THE FETCHED DATA :", data);
+        const spreadData = data.data
+         await dispatch({
             type:'SET_JOBS',
-            payload: data
+            payload: spreadData
         });
       } else {
         console.log("ERROR: could not fetch data");

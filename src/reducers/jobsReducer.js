@@ -6,9 +6,8 @@ const jobsReducer = (state = initialState, action) => {
 		case "SET_JOBS": 
 			return {
 				...state,
-				content: [...action.payload]
+				content: [action.payload]
 				}
-		
 		
 		// case "SET_ERROR": 
 		// 	return {

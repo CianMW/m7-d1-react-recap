@@ -11,7 +11,9 @@ import { useEffect, useState } from "react";
 import SearchResults from "./SearchResults";
 import { connect } from "react-redux";
 import { fetchJobsAction } from "../actions/index.js";
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state) => ({
+  jobsArray : state.jobs.content
+})
 
 //setJobs takes a url as payload and uses it as props
 const mapDispatchToProps = (dispatch) => ({
@@ -20,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-const JobSearch = ({setJobs, state}) => {
+const JobSearch = ({setJobs, jobsArray}) => {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
   const [searchResult, setSearchResult] = useState(null);
@@ -30,37 +32,14 @@ const JobSearch = ({setJobs, state}) => {
       const response = await setJobs(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&category=${category}&limit=10`
       );
-      if (response.ok) {
-        const data = await response.json();
-        console.log("HERE IS THE FETCHED DATA :", ...data);
-        await setSearchResult(...data);
-      } else {
-        console.log("ERROR: could not fetch data");
-      }
     } else if (query.length > 3) {
-      const response = await fetch(
+       setJobs(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&limit=10`
       );
-      if (response.ok) {
-        const data = await response.json();
-        console.log("HERE IS THE FETCHED DATA :", data);
-        await setSearchResult(data);
-      } else {
-        console.log("ERROR: could not fetch data");
-      }
     } else {
-      const response = await fetch(
-        `https://strive-jobs-api.herokuapp.com/jobs?limit=10`
-      );
-      if (response.ok) {
-         setJobs("SHOULD BE URL");
-        const data = await response.json();
-        console.log("HERE IS THE FETCHED DATA :", data);
-        await setSearchResult(data);
-      } else {
-        console.log("ERROR: could not fetch data");
-      }
+         setJobs(`https://strive-jobs-api.herokuapp.com/jobs?limit=10`);
     }
+   await console.log("HERE'S THE REDUX STATE JOBS ARRAY", jobsArray)
   };
   
   useEffect(() => {
@@ -77,6 +56,8 @@ const JobSearch = ({setJobs, state}) => {
       fetchData();
     }
   }, []);
+
+  const spreadData = [...jobsArray]
 
   return (
     <div className="total-cover">
@@ -98,7 +79,7 @@ const JobSearch = ({setJobs, state}) => {
                     className="mr-sm-2"
                   />
                   <Button
-                    onClick={() => console.log(query)}
+                    onClick={() => console.log(spreadData)}
                     variant="outline-info"
                   >
                     Search
@@ -128,7 +109,7 @@ const JobSearch = ({setJobs, state}) => {
         </Container>
       </div>
       <Container>
-        {searchResult && <SearchResults result={searchResult} />}
+        {jobsArray && <SearchResults result={jobsArray} />}
       </Container>
     </div>
   );

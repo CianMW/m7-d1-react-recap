@@ -12,9 +12,12 @@ import {
 import { Link } from "react-router-dom";
 import clipart from "../imageAssets/clipart329592.png";
 import { connect } from "react-redux";
+import { Spinner } from "react-bootstrap";
 
 
- const mapStateToProps = (state) => state
+ const mapStateToProps = (state) => ({
+   load : state.jobs.loading
+ })
 
  const mapDispatchToProps = (dispatch) => ({
     favourite: (element) => {
@@ -33,8 +36,8 @@ import { connect } from "react-redux";
 
 
 
-const SearchResults = ({ result, favourite, removeFavourite }) => {
-  const [searchResult, setSearchResult] = useState(...result);
+const SearchResults = ({ result, favourite, removeFavourite, load }) => {
+  const [searchResult, setSearchResult] = useState(result);
   const [selectedItemsArray, setSelectedItemsArray] = useState([]);
 
 
@@ -50,54 +53,59 @@ const SearchResults = ({ result, favourite, removeFavourite }) => {
 
   };
 
-  
+
 
 
   return (
     <div>
       {console.log(result)}
-      {searchResult ? (
-        searchResult.map((data, i) => (
-          <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
-            <Col sm={9}>
-              <Col sm={6}>
-                
-                  <p className="d-flex">
-                    <h6>Company Name</h6> : {data.company_name}
-                  </p>
-                  <p className="d-flex">
-                    <h6>Position</h6> : {data.title}
-                  </p>
-           
-              </Col>
-              <Col sm={6}>
-                       <p className="d-flex">
-                    <h6>Hours</h6> : {data.job_type}
-                  </p>
-                  <p className="d-flex">
-                    <h6>Category</h6> : {data.category}
-                  </p>
-            
-              </Col>
-            </Col>
-            <Col sm={3}>
-                <div className="d-flex justify-content-between">
-              <Link to={`/company/${data._id}`}>
-                <Button>find out more</Button>
-              </Link>
-              <div >
-              <i className={
-             selectedItemsArray.includes(data._id) ? "bi bi-star-fill fav-star bubble" : "bubble bi bi-star fav-star"
-          }
-          onClick={() => toggleClick(data)} ></i>
-          </div>
-              </div>
-            </Col>
-          </Row>
-        ))
-      ) : (
-        <></>
-      )}
+{load ? (
+    <Spinner animation="border" className="d-flex-inline" style={{color: "gray", width: "2em", height: "2em", fontSize: "30px", position:"absolute",}} />
+) : (<>{result.length > 0 ? (
+  result.map((data, i) => (
+    <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
+      <Col sm={9}>
+        <Col sm={6}>
+          
+            <p className="d-flex">
+              <h6>Company Name</h6> : {data.company_name}
+            </p>
+            <p className="d-flex">
+              <h6>Position</h6> : {data.title}
+            </p>
+     
+        </Col>
+        <Col sm={6}>
+                 <p className="d-flex">
+              <h6>Hours</h6> : {data.job_type}
+            </p>
+            <p className="d-flex">
+              <h6>Category</h6> : {data.category}
+            </p>
+      
+        </Col>
+      </Col>
+      <Col sm={3}>
+          <div className="d-flex justify-content-between">
+        <Link to={`/company/${data._id}`}>
+          <Button>find out more</Button>
+        </Link>
+        <div >
+        <i className={
+       selectedItemsArray.includes(data._id) ? "bi bi-star-fill fav-star bubble" : "bubble bi bi-star fav-star"
+    }
+    onClick={() => toggleClick(data)} ></i>
+    </div>
+        </div>
+      </Col>
+    </Row>
+  ))
+) : (
+  <>
+  <h1>No jobs found</h1>
+  </>
+)} </>)}
+      
     </div>
   );
 };

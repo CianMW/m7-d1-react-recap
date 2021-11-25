@@ -6,19 +6,23 @@ const jobsReducer = (state = initialState, action) => {
 		case "SET_JOBS": 
 			return {
 				...state,
-				content: [action.payload]
+				content: [...action.payload]
+				}		
+		case "SET_ERROR": 
+			return {
+				data: {
+					...state.data,
+			favourites: [
+				...state.data.favourites.filter(element => element._id === action.payload._id)
+			]
 				}
-		
-		// case "SET_ERROR": 
-		// 	return {
-		// 		data: {
-		// 			...state.data,
-		// 	favourites: [
-		// 		...state.data.favourites.filter(element => element._id === action.payload._id)
-		// 	]
-		// 		}
 			
-		// }
+		}
+		case "TOGGLE_LOADER": 
+			return {
+				...state,
+				loading: action.payload
+				}		
 		default:
 			return state 	
 	}

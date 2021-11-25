@@ -5,27 +5,22 @@ const favouriteReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case "FAVOURITE": 
 			return {
-				data:{
-						...state.data,
+					...state,
 			favourites: [
-				...state.data.favourites,
+				...state.favourites,
 				 action.payload
-			]
-				}
-		
+			],
 		}
 		case "REMOVE_FAVOURITE": 
 			return {
-				data: {
-					...state.data,
+				...state,
 			favourites: [
-				...state.data.favourites.filter(element => element._id === action.payload._id)
-			]
-				}
-			
+				
+			...state.favourites.filter(element => element._id !== action.payload._id)
+			],			
 		}
 		default:
-			return state 	
+		return state 	
 	}
 }
 

@@ -29,7 +29,7 @@ const JobSearch = ({setJobs, jobsArray}) => {
 
   const fetchData = async () => {
     if (query.length > 3 && category) {
-      const response = await setJobs(
+       setJobs(
         `https://strive-jobs-api.herokuapp.com/jobs?search=${query}&category=${category}&limit=10`
       );
     } else if (query.length > 3) {
@@ -39,7 +39,7 @@ const JobSearch = ({setJobs, jobsArray}) => {
     } else {
          setJobs(`https://strive-jobs-api.herokuapp.com/jobs?limit=10`);
     }
-   await console.log("HERE'S THE REDUX STATE JOBS ARRAY", jobsArray)
+   console.log("HERE'S THE REDUX STATE JOBS ARRAY", jobsArray)
   };
   
   useEffect(() => {
@@ -60,7 +60,7 @@ const JobSearch = ({setJobs, jobsArray}) => {
   const spreadData = [...jobsArray]
 
   return (
-    <div className="total-cover">
+    <div className="total-cover-company">
       <div className="head-background">
         <Container className="p-2">
           <Row>
@@ -109,7 +109,7 @@ const JobSearch = ({setJobs, jobsArray}) => {
         </Container>
       </div>
       <Container>
-        {jobsArray && <SearchResults result={jobsArray} />}
+        {jobsArray && <SearchResults result={spreadData} />}
       </Container>
     </div>
   );

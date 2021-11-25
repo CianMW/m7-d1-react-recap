@@ -1,9 +1,9 @@
 import { initialState } from "../store/index.js"
 
 
-const mainReducer = (state = initialState, action) => {
+const jobsReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "FAVOURITE": 
+		case "SET_JOBS": 
 			return {
 				data:{
 						...state.data,
@@ -14,7 +14,7 @@ const mainReducer = (state = initialState, action) => {
 				}
 		
 		}
-		case "REMOVE_FAVOURITE": 
+		case "SET_ERROR": 
 			return {
 				data: {
 					...state.data,
@@ -29,7 +29,7 @@ const mainReducer = (state = initialState, action) => {
 	}
 }
 
-export default mainReducer
+export default jobsReducer
 
 
 

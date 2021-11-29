@@ -5,6 +5,8 @@ import favouriteReducer from "../reducers/favouriteReducer.js"
 import jobsReducer from "../reducers/jobsReducer.js"
 import {persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
+import { encryptTransform } from "redux-persist-transform-encrypt"
+import dotenv from "dotenv/config"
 
 const aComposeFunctionThatAlwaysWorks = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -22,8 +24,13 @@ export const initialState = {
 
 const persistConfig = {
   key: "root",
-  storage, 
-}
+  storage,
+  transforms: [
+      encryptTransform({
+          secretKey: process.env.REACT_APP_ENCRYPTION_KEY,
+      })
+  ] 
+  }
 
 const bigReducer = combineReducers({
   data: favouriteReducer,

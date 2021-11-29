@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import SearchResults from "./SearchResults";
 import { connect } from "react-redux";
 import { fetchJobsAction } from "../actions/index.js";
+import { useSelector, useDispatch } from "react-redux";
 const mapStateToProps = (state) => ({
   jobsArray : state.jobs.content
 })

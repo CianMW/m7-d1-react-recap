@@ -10,12 +10,14 @@ import {
   Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import clipart from "../imageAssets/clipart329592.png";
 import { connect } from "react-redux";
 
 
  const mapStateToProps = (state) => ({
-   favouriteArray: state.data.favourites
+   favouriteArray: state.data.favourites,
+   load : state.jobs.loading
  })
 
  const mapDispatchToProps = (dispatch) => ({
@@ -35,30 +37,31 @@ import { connect } from "react-redux";
 
 
 
-const Favourites = ({ result, favourite, removeFavourite, favouriteArray }) => {
-  const [searchResult, setSearchResult] = useState(result);
-  const [selectedItemsArray, setSelectedItemsArray] = useState([...favouriteArray]);
+const Favourites = ({ result, favourite, removeFavourite, favouriteArray , load}) => {
 
 
   const toggleClick =(element)=> {
-   const index = selectedItemsArray.indexOf(element._id)
+   const index = favouriteArray.indexOf(element._id)
    if (index !== -1) {
-       setSelectedItemsArray([...selectedItemsArray, element._id])
        favourite(element)
    } else {
-       setSelectedItemsArray([...selectedItemsArray.filter(el => el !== element._id)])
        removeFavourite(element)
    }
 
   };
 
+ const [arrayOfFavourites, setArrayOfFavourites] = useState([]);
+
+ useEffect(() => {
+   setArrayOfFavourites(favouriteArray)
  
 
+ }, [favouriteArray]);
 
   return (
     <div className="total-cover">
-      {favouriteArray ? (
-        favouriteArray.map((data, i) => (
+      {arrayOfFavourites.length > 0 ? (
+        arrayOfFavourites.map((data, i) => (
           <Row className={i % 2 === 0 ? "grayer" : "whiter"}>
             <Col sm={6}>
               <div>
@@ -90,10 +93,16 @@ const Favourites = ({ result, favourite, removeFavourite, favouriteArray }) => {
           </Row>
         ))
       ) : (
-        <></>
+        <>
+        <h2>Hmm looks like you don't have any favourites</h2>
+        </>
       )}
     </div>
   );
 };
+
+
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Favourites);

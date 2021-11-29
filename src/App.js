@@ -28,13 +28,14 @@ function App() {
       <BrowserRouter>
       <MyNavbar/>
 
-
-      <Routes>
+      <div className="marginT">
+      <Routes >
           <Route path='/' element={<JobSearch />} />
           <Route path='/company/:companyId' element={<CompanyInfo />} />
           <Route path='/favourites' element={<Favourites />} />
           
       </Routes>
+      </div>
       
       </BrowserRouter>
       

@@ -1,20 +1,14 @@
 import { initialState } from "../store/index.js"
 
 
-const mainReducer = (state = initialState, action) => {
+const jobsReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case "FAVOURITE": 
+		case "SET_JOBS": 
 			return {
-				data:{
-						...state.data,
-			favourites: [
-				...state.data.favourites,
-				 action.payload
-			]
-				}
-		
-		}
-		case "REMOVE_FAVOURITE": 
+				...state,
+				content: [...action.payload]
+				}		
+		case "SET_ERROR": 
 			return {
 				data: {
 					...state.data,
@@ -24,12 +18,17 @@ const mainReducer = (state = initialState, action) => {
 				}
 			
 		}
+		case "TOGGLE_LOADER": 
+			return {
+				...state,
+				loading: action.payload
+				}		
 		default:
 			return state 	
 	}
 }
 
-export default mainReducer
+export default jobsReducer
 
 
 

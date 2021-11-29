@@ -4,7 +4,7 @@ import clipart from "../imageAssets/clipart329592.png";
 
 const MyNavbar = () => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" className="navbar-scroll" >
      
       <Link to="/">
         <img src={clipart} height="50px" width="50px" />
